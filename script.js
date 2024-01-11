@@ -317,7 +317,7 @@ const slider = function () {
       // goToSlide from the slide number we got from the dataset
       goToSlide(slide);
       // activateDot when we click on one of the dot in the container
-      activateDot(slide)
+      activateDot(slide);
     }
   });
 };
