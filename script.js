@@ -322,3 +322,182 @@ const slider = function () {
   });
 };
 slider();
+
+console.log(document.documentElement); 
+// Selecting the head tag of any web page
+console.log(document.head);
+// Selecting the entire body tage of any web page
+console.log(document.body);
+
+const allButtons = document.getElementsByTagName('button');
+console.log(allButtons);
+
+// Selecting all the element that has a className of btn
+console.log(document.getElementsByClassName('btn'));
+``
+
+
+  const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+  // To generate ranndom colors => rgb(155,230,255)
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+  var h1 = document.querySelector('h1');
+
+// Going downwards: child
+console.log(h1.querySelectorAll('.highlight'));
+// to get all the childNodes inside the h1 i.e(text, br, comment, span.highlight)
+console.log(h1.childNodes);
+// to get the children inside the h1 element i.e(span.highlight, br and span.highlight)
+console.log(h1.children);
+
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling); // Get the next siblings element of the h1 element
+
+console.log(h1.previousSibling);
+// Get the siblings of the h1 element
+console.log(h1.nextSibling);
+
+// Get the children of h1 parent element
+console.log(h1.parentElement.children);
+
+const initialCoords = section1.getBoundingClientRect();
+console.log(initialCoords);
+
+const obsCallback = function (entries, observer) {
+  // obsCallback function get triggered each time the target element moves completely in and out (0) of the view and also when it intersect viewport at 0.2(20%)
+    entries.forEach(entry => {
+      console.log(entry);
+    });
+  };
+  
+  // obsOptions object has a root property and the root is the element that the target is intercepting
+  const obsOptions = {
+    root: null,
+  // threshold is the percentage of intersection which the observer callback would be called
+    threshold: [0, 0.2],
+  };
+  
+  const accounts = [100, 4334, 800, 45489, 3500, 5400]
+  
+// 1. To calcualte how much has been deposited in total in the all the accounts across the bank
+const bankDepositSum = accounts
+.flatMap(acct => acct.movements)
+.filter(mov => mov > 0)
+.reduce((sum, cur) => sum + cur, 0);
+
+console.log(bankDepositSum);
+
+// 2. To count how many deposits have been in the bank with at least #1000
+const numDeposits1000 = accounts
+.flatMap(acct => acct.movements)
+.filter(mov => mov >= 1000).length
+
+console.log(numDeposits1000);
+             // OR Using Array reduce
+const myDeposits1000 = accounts
+.flatMap(acct => acct.movements)
+// The count is the number of movements that are greater than #1000 
+.reduce((count, cur) => (cur >= 1000 ? ++count // ++count => counts values >= 1000 and returns it
+  : count), 0);
+
+  console.log(myDeposits1000);
+
+// prefixed ++ operator
+let a = 10;
+console.log(++a);
+console.log(a);
+
+
+// 3. Create an object in an array for deposits and withdrawals using Array reduce method
+const { deposits, withdrawals } = accounts
+.flatMap(acct => acct.movements)
+.reduce(
+  (sums, cur) => {
+    cur > 0 ? (sums.deposits += cur) 
+    : (sums.withdrawals += cur);
+        // OR Using the Bracket Notation  
+    // sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur
+     return sums;
+  },
+  { deposits: 0, withdrawals: 0}
+  );
+  console.log(deposits, withdrawals);
+
+// 4. Create a single function to convert any string into title case(i.e all words are in capitalize form except some of them)
+// Converting from 'this is a nice title' to 'This Is a Nice Title'
+const convertTitleCase = function (title) {
+// Change all the first index (0)of each string to uppercase and copying all the second index(1) in each string by concatenating (+) it
+  const capitalize = (str) => str[0].toUpperCase()
+  + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but',
+  'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+  .toLowerCase()
+  .split(' ')
+// if the current word is included in the exception array return that word(From the exception array) and join all array into a single string else change all the first index (0)of each word to uppercase and copying all the second index(1) in each word by concatenating (+) it and join all array into a single string
+  .map(word => (exceptions.includes(word) ? word
+  : capitalize(word)))
+  .join(' ')
+
+  return capitalize(titleCase);
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+
+const number = 3884764.23;
+// three different styling in options objects ("unit", "percent" and "currency");
+const options = {
+  style: 'currency',
+  unit: 'celsius',
+  currency: 'NGN',
+  // useGrouping: false, => not to group the numbers with a comma(,)
+};
+
+console.log('NG:      ', new Intl.NumberFormat('en-NG', options).format(number));
+console.log('US:      ', new Intl.NumberFormat('en-US', options).format(number));
+console.log('Germany: ', new Intl.NumberFormat('de-DE', options).format(number));
+console.log('Syria:   ', new Intl.NumberFormat('ar-SY', options).format(number));
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, options).format(number)
+);
+
+const now = new Date();
+console.log(now);
+// 2.
+console.log(new Date('Aug 02 2020 18:05:41'));
+console.log(new Date('December 24, 2015'));
+
+// 3. Convert year, month, date, hour, seconds
+console.log(new Date(2023, 10, 19, 15, 23, 5));
+console.log(new Date(2023, 10, 31));
+
+// To get the first day stored in javascript
+console.log(new Date(0));
+// Converting days to milliseconds i.e after 3 days
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+
+// 4. Working with dates
+const future = new Date(2023, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+const myFuture = new Date(2023, 10, 19, 15, 23); // To get the timestamp of this current date to number in milliseconds
+console.log(+myFuture);
+
+// Create a functions that takes in two dates and parse the number of dates that passed between the two days
+const calcDaysPassed = (date1, date2) =>
+  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24); // Converting timestamp from milliseconds to  minutes, hour, and day
+
+const days1 = calcDaysPassed(new Date(2023, 3, 4), 
+new Date(2023, 3, 14));
+console.log(days1); // 10 days
